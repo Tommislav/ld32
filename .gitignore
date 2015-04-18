@@ -1,0 +1,17 @@
+Temp
+Library
+obj
+ios
+*.userprefs
+
+Assets/UnityVS.meta
+Assets/UnityVS/
+UnityVS.nya-radioapan-app.sln.DotSettings.user
+Assets/Resources/Imported*
+Assets/Resources/Imported/
+
+*.*proj
+*.sln
+*.suo
+
+bin
