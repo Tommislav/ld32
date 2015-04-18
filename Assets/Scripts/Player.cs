@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 
 	private GameObject _attack;
 	private GameObject _pourCoffePos;
+	private bool _hasWeapon;
 	private bool _canAttack;
 	private bool _isAttacking;
 	private bool _isPouring;
@@ -16,7 +17,8 @@ public class Player : MonoBehaviour {
 		_attack = GameObject.Find("Cup");
 		_pourCoffePos = GameObject.Find("PourCoffe");
 		_move = GetComponent<MoveData>();
-		_canAttack = true;
+		_canAttack = false;
+		_attack.SetActive(false);
 	}
 
 
@@ -73,6 +75,14 @@ public class Player : MonoBehaviour {
 
 
 
+
+
+
+
+	public void OnCoffeCupRecieved() {
+		_canAttack = true;
+		_attack.SetActive(true);
+	}
 
 
 

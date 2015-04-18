@@ -20,13 +20,19 @@ public class Health : MonoBehaviour {
 		_lastDamageTime = Time.time;
 		if (HP == 0) {
 			SendMessage("OnDie", SendMessageOptions.DontRequireReceiver);
-		}
-		else {
-			if (JumpWhenHurt) {
-				Rigidbody rb = GetComponent<Rigidbody>();
-				rb.velocity = Vector3.zero;
-				rb.AddForce(new Vector3(0, JumpStr, 0));
+
+			Collider[] colls = GetComponents<Collider>();
+			foreach (Collider coll in colls) {
+				coll.enabled = false;
 			}
+
+
+		}
+		
+		if (JumpWhenHurt) {
+			Rigidbody rb = GetComponent<Rigidbody>();
+			rb.velocity = Vector3.zero;
+			rb.AddForce(new Vector3(0, JumpStr, 0));
 		}
 	}
 }

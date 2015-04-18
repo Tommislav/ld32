@@ -15,17 +15,33 @@ public class CoffeeDamagable : MonoBehaviour {
 	}
 	
 	void Update () {
-	
-	}
-
-	void OnCollisOnCollisionEnter(Collision coll) {
-		if (coll.gameObject.tag == "Coffee") {
-			Destroy(coll.gameObject);
-			AmountOfCoffeePerHp--;
-
-			if (AmountOfCoffeePerHp <= 0) {
-				
-			}
+		if (transform.position.y < -50f) {
+			Destroy(gameObject);
 		}
 	}
+
+	private void OnTriggerEnter(Collider coll) {
+		if (coll.gameObject.tag == "Coffee") {
+			Destroy(coll.gameObject);
+
+			if (_health.CanRecieveDamage()) {
+				AmountOfCoffeePerHp--;
+
+				if (AmountOfCoffeePerHp <= 0) {
+					_health.ReduceHealth();
+					AmountOfCoffeePerHp = _refillAmount;
+				}
+			}
+			
+		}
+	}
+
+	/*
+	void OnCollisOnCollisionEnter(Collision coll) {
+		if (coll.gameObject.tag == "Coffee") {
+			Debug.Log("OnCollisOnCollisionEnter " + coll.gameObject.name);
+		}
+
+	}
+	 */
 }
