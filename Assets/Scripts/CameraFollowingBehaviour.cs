@@ -4,7 +4,6 @@ using System.Collections;
 public class CameraFollowingBehaviour : MonoBehaviour {
 
 	public GameObject tracker;
-	public bool is3dCamera;
 
 	private float _lastTrackX;
 	private float _lastTrackY;
