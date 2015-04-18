@@ -1,24 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour {
+public class Movement : MonoBehaviour {
 
 
-	public float distToGround = 0.5f;
+	public float distToGround = 0.03f;
 	private MoveData _move;
 
 	private Rigidbody _rigidBody;
 	//private Animator _animator;
 
+	[HideInInspector]
 	public float facingAngle = 0f;
 	private Vector3 _moveDir;
 
+	private int _groundLayerMask;
 
 	void Start() {
 		_move = GetComponent<MoveData>();
 		_rigidBody = GetComponent<Rigidbody>();
 		//_animator = GetComponent<Animator>();
-		_moveDir = getVectorFromAngle(0);
+
+		_groundLayerMask = LayerMask.NameToLayer("Ground");
+
+		float initialRotation = Mathf.Round(transform.rotation.eulerAngles.y);
+		Debug.Log("My initial rotation " + gameObject.name + ", rot: " + initialRotation);
+		
+		_move.MoveAngle = initialRotation;
+		_moveDir = getVectorFromAngle(initialRotation);
 	}
 
 	void FixedUpdate() {
@@ -29,10 +38,8 @@ public class PlayerMovement : MonoBehaviour {
 		_rigidBody.velocity = velocity;
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		_move.Speed = Input.GetAxis ("Horizontal");
-
+		
 		if (_move.Speed < 0 && !_move.FlippedX) {
 			setDir (-1);
 		} else if (_move.Speed > 0 && _move.FlippedX) {
@@ -40,17 +47,15 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		_move.Grounded = IsGrounded();
-		//_animator.SetBool("inAir", !_move.Grounded);
-		//_animator.SetBool("isWalking", (_move.Speed < -0.1f || _move.Speed > 0.1f));
 
-		if (Input.GetButtonDown ("Jump") && _move.Grounded) {
+		if ( _move.JumpKeyIsDown && _move.Grounded) {
 			_rigidBody.AddForce(new Vector2(0.0f, _move.JumpStr));
 			_move.Grounded = false;
 		}
 	}
 
 	public bool IsGrounded() {
-		return Physics.Raycast(_rigidBody.transform.position, -Vector3.up, distToGround + 0.1f);
+		return Physics.Raycast(_rigidBody.transform.position, -Vector3.up, distToGround);
 	}
 
 	private void setDir(int dir) {
@@ -62,7 +67,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	private Vector3 getVectorFromAngle(float angle) {
-		float moveRad = _move.MoveAngle / 180 * Mathf.PI;
+		float moveRad = angle / 180 * Mathf.PI;
 		float x = Mathf.Cos(moveRad);
 		float z = -Mathf.Sin(moveRad);
 

@@ -15,13 +15,13 @@ public class CameraFollowingBehaviour : MonoBehaviour {
 	private float _lastRot;
 
 	private Transform _transform;
-	private PlayerMovement _playerMovement;
+	private Movement _movement;
 
 
 	// Use this for initialization
 	void Start () {
 		_transform = tracker.GetComponent<Transform>();
-		_playerMovement = tracker.GetComponent<PlayerMovement>();
+		_movement = tracker.GetComponent<Movement>();
 		_lastRot = 0f;
 
 		_offset = transform.position - _transform.position;
@@ -32,8 +32,8 @@ public class CameraFollowingBehaviour : MonoBehaviour {
 		Vector3 vec = _transform.position + _offset;
 		this.transform.position = vec;
 
-		if (_playerMovement.facingAngle != _lastRot) {
-			_lastRot = _playerMovement.facingAngle * -1;
+		if (_movement.facingAngle != _lastRot) {
+			_lastRot = _movement.facingAngle * -1;
 
 			transform.rotation = Quaternion.identity;
 			transform.Rotate(0f, _lastRot, 0f);

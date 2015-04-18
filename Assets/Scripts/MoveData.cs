@@ -10,4 +10,9 @@ public class MoveData : MonoBehaviour {
 	public bool Jumping;
 	public bool Grounded;
 	public bool FlippedX;
+
+	//public bool LeftKeyIsDown;
+	//public bool RightKeyIsDown;
+	public bool JumpKeyIsDown;
+	
 }

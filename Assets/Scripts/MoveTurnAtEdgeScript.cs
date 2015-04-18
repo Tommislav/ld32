@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerTurnAtEdgeScript : MonoBehaviour {
+public class MoveTurnAtEdgeScript : MonoBehaviour {
 
 	private float _moveLeftAngle;
 	private float _moveRightAngle;
@@ -9,24 +9,22 @@ public class PlayerTurnAtEdgeScript : MonoBehaviour {
 	private bool _playerFacingUpdated;
 	
 
-	private PlayerMovement _playerMovement;
+	private Movement _movement;
 	private MoveData _move;
 	private Transform _triggerTransform;
 
 	void Start() {
 		_move = GetComponent<MoveData>();
-		_playerMovement = GetComponent<PlayerMovement>();
+		_movement = GetComponent<Movement>();
 	}
 	
 	
 	void Update () {
 		if (_triggerTransform != null) {
 
-			float distFromCenter = calc2dDistance();
+			float distFromCenter = Calc2DDistance();
 			bool movingAwayFromCenter = Mathf.Abs(distFromCenter) > Mathf.Abs(_lastDistance);
 			_lastDistance = distFromCenter;
-
-			Debug.Log("dist: " + distFromCenter + ", moveAway:" + movingAwayFromCenter);
 
 			if (movingAwayFromCenter && !_playerFacingUpdated) {
 				_playerFacingUpdated = true;
@@ -34,7 +32,7 @@ public class PlayerTurnAtEdgeScript : MonoBehaviour {
 				float angle = _move.Speed > 0 ?
 					_moveRightAngle : _moveLeftAngle;
 
-				_playerMovement.SetFacingAngle(angle);
+				_movement.SetFacingAngle(angle);
 
 				
 			} else {
@@ -43,7 +41,7 @@ public class PlayerTurnAtEdgeScript : MonoBehaviour {
 		}
 	}
 
-	private float calc2dDistance() {
+	private float Calc2DDistance() {
 		if (_triggerTransform == null) {
 			return 0f;
 		}
@@ -57,9 +55,9 @@ public class PlayerTurnAtEdgeScript : MonoBehaviour {
 	public void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "Turn") {
 			_triggerTransform = other.gameObject.GetComponent<Transform>();
-			_lastDistance = calc2dDistance();
+			_lastDistance = Calc2DDistance();
 
-			EdgeScript edge = other.gameObject.GetComponent<EdgeScript>();
+			TurnNode edge = other.gameObject.GetComponent<TurnNode>();
 			_moveLeftAngle = edge.MoveLeftAngle;
 			_moveRightAngle = edge.MoveRightAngle;
 		}

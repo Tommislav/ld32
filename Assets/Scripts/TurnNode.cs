@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EdgeScript : MonoBehaviour {
+public class TurnNode : MonoBehaviour {
 
 	public float MoveLeftAngle;
 	public float MoveRightAngle;
