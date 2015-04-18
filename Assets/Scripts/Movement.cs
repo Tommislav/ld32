@@ -24,7 +24,6 @@ public class Movement : MonoBehaviour {
 		_groundLayerMask = LayerMask.NameToLayer("Ground");
 
 		float initialRotation = Mathf.Round(transform.rotation.eulerAngles.y);
-		Debug.Log("My initial rotation " + gameObject.name + ", rot: " + initialRotation);
 		
 		_move.MoveAngle = initialRotation;
 		_moveDir = getVectorFromAngle(initialRotation);

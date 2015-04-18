@@ -22,9 +22,9 @@ public class ShakeCameraScript : MonoBehaviour {
 				_cameraOffset = Vector3.zero;
 			} else {
 				_cameraOffset = new Vector3(
-					Random.value,
-					Random.value,
-					Random.value
+					Random.value * 0.8f,
+					Random.value * 0.8f,
+					Random.value * 0.8f
 				);
 				_camera.transform.Translate(_cameraOffset);
 			}
