@@ -7,7 +7,10 @@ public class BossScript : MonoBehaviour {
 
 	private Transform _player;
 	private bool _rotateTowardsPlayer;
+	private string _bossFightState;
 
+
+	private bool _isActive;
 
 
 	// Use this for initialization
@@ -15,10 +18,7 @@ public class BossScript : MonoBehaviour {
 		_animator = GetComponent<Animator>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	
 
 
 
@@ -37,7 +37,45 @@ public class BossScript : MonoBehaviour {
 		GetComponent<ShakeCameraScript>().ShakeCamera();
 	}
 
+	public void ShakeGround() {
+		GetComponent<ShakeCameraScript>().ShakeCamera();
+	}
 
-	
+
+	public void StartBossFight() {
+		_isActive = true;
+		_player = GameObject.Find("/Player").transform;	
+		LeanTween.rotateY(gameObject, 270, 0.75f).setEase(LeanTweenType.easeOutQuad);
+		_animator.SetTrigger("startFight");
+
+		_bossFightState = "idle";
+	}
+
+
+
+	// Update is called once per frame
+	void Update() {
+		if (_isActive) {
+
+			float dist = _player.transform.position.z - transform.position.z;
+
+			if (_bossFightState == "idle") {
+				if (dist < 3) {
+					_animator.SetTrigger("smash1");
+				}
+			}
+
+			
+
+			
+
+		}
+	}
+
+
+	void OnDie() {
+		_isActive = false;
+		_animator.SetTrigger("die");
+	}
 
 }

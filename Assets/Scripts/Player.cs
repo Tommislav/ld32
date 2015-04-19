@@ -109,5 +109,13 @@ public class Player : MonoBehaviour {
 			go.GetComponent<BossScript>().StopIntro();
 
 		}
+
+		if (other.name == "StartBossFight") {
+			if (!StateData.Instance.BossFightStarted) {
+				StateData.Instance.BossFightStarted = true;
+				GameObject go = GameObject.Find("Boss");
+				go.GetComponent<BossScript>().StartBossFight();
+			}
+		}
 	}
 }
