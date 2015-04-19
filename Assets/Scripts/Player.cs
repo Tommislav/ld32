@@ -15,6 +15,8 @@ public class Player : MonoBehaviour {
 	private bool _isPouring;
 	private MoveData _move;
 
+	private float _currentCheckpointId = 1f;
+
 	void Start() {
 		_attack = GameObject.Find("Cup");
 		_pourCoffePos = GameObject.Find("PourCoffe");
@@ -104,7 +106,7 @@ public class Player : MonoBehaviour {
 
 
 
-	public void GotoCheckpoint(int n) {
+	public void GotoCheckpoint(float n) {
 		GameObject[] objs = GameObject.FindGameObjectsWithTag("CheckPoint");
 		foreach (GameObject go in objs) {
 			CheckpointScript checkpoint = go.GetComponent<CheckpointScript>();
@@ -169,6 +171,23 @@ public class Player : MonoBehaviour {
 
 		if (other.name == "ElevatorTrigger") {
 			other.gameObject.GetComponent<ElevatorScript>().StartElevator();
+		}
+
+		if (other.name == "CP Trigger") {
+			_currentCheckpointId = other.gameObject.GetComponent<CheckpointTrigger>().CheckpointId;
+		}
+	}
+
+
+	public void OnRestore() {
+		gameObject.GetComponent<Health>().HP = 3;
+		GotoCheckpoint(_currentCheckpointId);
+		gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+		Collider[] colls = GetComponents<Collider>();
+		foreach (Collider coll in colls) {
+			coll.enabled = true;
+
 		}
 	}
 }
