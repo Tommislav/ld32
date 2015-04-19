@@ -26,6 +26,7 @@ public class Movement : MonoBehaviour {
 		float initialRotation = Mathf.Round(transform.rotation.eulerAngles.y);
 		
 		_move.MoveAngle = initialRotation;
+		facingAngle = -initialRotation;
 		_moveDir = getVectorFromAngle(initialRotation);
 	}
 
