@@ -60,6 +60,10 @@ public class SpawnBulletsScript : MonoBehaviour {
 	public void SpawnObject() {
 		GameObject go = Instantiate<GameObject>(SpawnPrefab);
 		go.transform.position = SpawnPoint.position;
+		go.transform.rotation = SpawnPoint.rotation;
+
+		Rigidbody rb = go.GetComponent<Rigidbody>();
+		rb.AddForce(go.transform.up * SpawnSpeed);
 	}
 
 	public void OnDie() {
