@@ -6,11 +6,12 @@ public class CoffeeDamagable : MonoBehaviour {
 	public int AmountOfCoffeePerHp = 10;
 	private int _refillAmount;
 
-
+	
 	private Health _health;
 
 	void Start () {
-		_health = GetComponent<Health>();
+		GameObject parent = transform.parent.gameObject;
+		_health = parent.GetComponent<Health>();
 		_refillAmount = AmountOfCoffeePerHp;
 	}
 	

@@ -5,6 +5,8 @@ public class Player : MonoBehaviour {
 
 	public GameObject CoffeeParticle;
 
+	public bool StartWithCup = false;
+
 	private GameObject _attack;
 	private GameObject _pourCoffePos;
 	private bool _hasWeapon;
@@ -17,8 +19,8 @@ public class Player : MonoBehaviour {
 		_attack = GameObject.Find("Cup");
 		_pourCoffePos = GameObject.Find("PourCoffe");
 		_move = GetComponent<MoveData>();
-		_canAttack = false;
-		_attack.SetActive(false);
+		_canAttack = StartWithCup;
+		_attack.SetActive(StartWithCup);
 	}
 
 

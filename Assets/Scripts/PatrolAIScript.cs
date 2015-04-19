@@ -21,6 +21,8 @@ public class PatrolAIScript : MonoBehaviour {
 	public int _pauseCounter;
 
 
+
+
 	void Start() {
 		_moveData = GetComponent<MoveData>();
 		_dir = StartWalkingRight ? 1 : -1;
@@ -64,5 +66,9 @@ public class PatrolAIScript : MonoBehaviour {
 	void OnLineOfSightExit(GameObject go) {
 		_currentSpeed = PatrolSpeed;
 		_canSeePlayer = false;
+	}
+
+	public void OnDie() {
+		this.enabled = false;
 	}
 }

@@ -24,6 +24,7 @@ public class Health : MonoBehaviour {
 			Collider[] colls = GetComponents<Collider>();
 			foreach (Collider coll in colls) {
 				coll.enabled = false;
+
 			}
 
 
