@@ -57,7 +57,7 @@ public class BossScript : MonoBehaviour {
 	void Update() {
 		if (_isActive) {
 
-			float dist = _player.transform.position.z - transform.position.z;
+			float dist = _player.transform.position.x - transform.position.x;
 
 			if (_bossFightState == "idle") {
 				if (dist < 3) {

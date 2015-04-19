@@ -36,4 +36,16 @@ public class Health : MonoBehaviour {
 			rb.AddForce(new Vector3(0, JumpStr, 0));
 		}
 	}
+
+
+	void Update() {
+		if (transform.position.y < -50f) {
+			if (gameObject.name == "Player") {
+				SendMessage("OnRestore");
+			}
+			else {
+				Destroy(gameObject);
+			}
+		}
+	}
 }

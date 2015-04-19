@@ -25,7 +25,32 @@ public class Player : MonoBehaviour {
 
 
 
+	private int _lastCheckpoint;
+
+	private void OnGUI() {
+		if (Debug.isDebugBuild) {
+			int n = -1;
+			if (Event.current.keyCode == KeyCode.Q) {
+				n = 1;
+			} else if (Event.current.keyCode == KeyCode.W) {
+				n = 2;
+			} else if (Event.current.keyCode == KeyCode.E) {
+				n = 3;
+			} else if (Event.current.keyCode == KeyCode.R) {
+				n = 4;
+			}
+
+			if (n != -1 && n != _lastCheckpoint) {
+				_lastCheckpoint = n;
+				GotoCheckpoint(n);
+			}
+		}
+	}
+
+
+
 	void Update() {
+
 		if (Input.GetButtonDown("Fire1")) {
 			if (_canAttack && !_isAttacking) {
 				_isAttacking = true;
@@ -79,6 +104,30 @@ public class Player : MonoBehaviour {
 
 
 
+	public void GotoCheckpoint(int n) {
+		GameObject[] objs = GameObject.FindGameObjectsWithTag("CheckPoint");
+		foreach (GameObject go in objs) {
+			CheckpointScript checkpoint = go.GetComponent<CheckpointScript>();
+			if (checkpoint.Id == n) {
+				
+				// THIS IS THE ONE
+
+
+
+				gameObject.transform.position = checkpoint.transform.position;
+				
+				GameObject camera = GameObject.Find("/CameraHolder");
+				camera.transform.position = checkpoint.transform.position;
+
+				gameObject.GetComponent<Movement>().SetFacingAngle(checkpoint.Rotation);
+
+				return;
+			}
+		}
+	}
+
+
+
 
 
 	public void OnCoffeCupRecieved() {
@@ -116,6 +165,10 @@ public class Player : MonoBehaviour {
 				GameObject go = GameObject.Find("Boss");
 				go.GetComponent<BossScript>().StartBossFight();
 			}
+		}
+
+		if (other.name == "ElevatorTrigger") {
+			other.gameObject.GetComponent<ElevatorScript>().StartElevator();
 		}
 	}
 }
