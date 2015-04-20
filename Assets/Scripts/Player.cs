@@ -176,6 +176,10 @@ public class Player : MonoBehaviour {
 		if (other.name == "CP Trigger") {
 			_currentCheckpointId = other.gameObject.GetComponent<CheckpointTrigger>().CheckpointId;
 		}
+
+		if (other.name == "EndGame") {
+			Application.LoadLevel("Ending");
+		}
 	}
 
 
