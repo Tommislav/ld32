@@ -7,6 +7,8 @@ public class ShakeCameraScript : MonoBehaviour {
 	private int _shakeCounter;
 	private Camera _camera;
 
+	public AudioClip SmashSound;
+
 	void Start () {
 		_cameraOffset = new Vector3();
 		_camera = Camera.main;
@@ -35,5 +37,9 @@ public class ShakeCameraScript : MonoBehaviour {
 
 	public void ShakeCamera() {
 		_shakeCounter = 10;
+
+		GameObject player = GameObject.Find("/Player");
+		AudioSource audio = player.GetComponent<AudioSource>();
+		audio.PlayOneShot(SmashSound);
 	}
 }

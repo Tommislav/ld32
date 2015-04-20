@@ -16,3 +16,6 @@ Assets/Resources/Imported/
 
 bin
 gl
+win
+osx
+linux

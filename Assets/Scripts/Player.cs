@@ -7,6 +7,8 @@ public class Player : MonoBehaviour {
 
 	public bool StartWithCup = false;
 
+	public AudioClip PickupSound;
+
 	private GameObject _attack;
 	private GameObject _pourCoffePos;
 	private bool _hasWeapon;
