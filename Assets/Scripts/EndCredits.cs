@@ -19,7 +19,7 @@ public class EndCredits : MonoBehaviour {
 		Credits.rectTransform.Translate(0, 0.5f, 0);
 
 		if (Credits.rectTransform.position.y > EndY) {
-			Application.LoadLevel("GameScene");
+			Application.LoadLevel(NextScene);
 		}
 	}
 }
