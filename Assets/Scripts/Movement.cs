@@ -21,7 +21,7 @@ public class Movement : MonoBehaviour {
 		_rigidBody = GetComponent<Rigidbody>();
 		//_animator = GetComponent<Animator>();
 
-		_groundLayerMask = LayerMask.NameToLayer("Ground");
+		_groundLayerMask = 1 << 8;
 
 		float initialRotation = Mathf.Round(transform.rotation.eulerAngles.y);
 		
@@ -55,7 +55,7 @@ public class Movement : MonoBehaviour {
 	}
 
 	public bool IsGrounded() {
-		return Physics.Raycast(_rigidBody.transform.position, -Vector3.up, distToGround);
+		return Physics.Raycast(_rigidBody.transform.position, -Vector3.up, distToGround, _groundLayerMask);
 	}
 
 	private void setDir(int dir) {
