@@ -5,6 +5,7 @@ public class MoveTurnAtEdgeScript : MonoBehaviour {
 
 	private float _moveLeftAngle;
 	private float _moveRightAngle;
+	private bool _moveWithTransition;
 	private float _lastDistance;
 	private bool _playerFacingUpdated;
 	
@@ -32,7 +33,13 @@ public class MoveTurnAtEdgeScript : MonoBehaviour {
 				float angle = _move.Speed > 0 ?
 					_moveRightAngle : _moveLeftAngle;
 
-				_movement.SetFacingAngle(angle);
+				if (_moveWithTransition) {
+					_movement.SetFacingAngleWithTween(angle);
+				} else {
+					_movement.SetFacingAngleInstant(angle);
+				}
+
+				
 
 				
 			} else {
@@ -60,6 +67,7 @@ public class MoveTurnAtEdgeScript : MonoBehaviour {
 			TurnNode edge = other.gameObject.GetComponent<TurnNode>();
 			_moveLeftAngle = edge.MoveLeftAngle;
 			_moveRightAngle = edge.MoveRightAngle;
+			_moveWithTransition = edge.MoveWithTransition;
 		}
 	}
 

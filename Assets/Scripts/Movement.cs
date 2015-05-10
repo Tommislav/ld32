@@ -75,14 +75,22 @@ public class Movement : MonoBehaviour {
 		return new Vector3(x, 0f, z);
 	}
 
+	public void SetFacingAngleWithTween(float angle) {
+		SetFacingAngle(angle);
+		LeanTween.value(gameObject, updateFacingAngleFromAnimation, facingAngle, -angle, 1.3f).setEase(LeanTweenType.easeInOutQuart);
+	}
+
+	public void SetFacingAngleInstant(float angle) {
+		SetFacingAngle(angle);
+		facingAngle = -angle;
+	}
+
 	public void SetFacingAngle(float angle) {
 		_move.MoveAngle = angle;
 		_moveDir = getVectorFromAngle(angle);
-		
+
 		float rotTarget = (_move.FlippedX) ? angle + 180 : angle;
 		LeanTween.rotate(gameObject, new Vector3(0f, rotTarget, 0f), 0.25f);
-
-		LeanTween.value(gameObject, updateFacingAngleFromAnimation, facingAngle, -angle, 1.3f).setEase(LeanTweenType.easeInOutQuart);
 	}
 
 	private void updateFacingAngleFromAnimation(float value) {

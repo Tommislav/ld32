@@ -12,6 +12,9 @@ public class BossScript : MonoBehaviour {
 
 	private bool _isActive;
 
+	public GameObject[] IntroObjectsToDisable;
+	public GameObject[] IntroObjectsToEnable;
+
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +29,10 @@ public class BossScript : MonoBehaviour {
 		_rotateTowardsPlayer = true;
 		_animator.SetTrigger("playIntro");
 		_player = player;
+
+		foreach (GameObject go in IntroObjectsToEnable) {
+			go.SetActive(true);
+		}
 	}
 
 	public void StopIntro() {
@@ -39,6 +46,13 @@ public class BossScript : MonoBehaviour {
 
 	public void ShakeGround() {
 		GetComponent<ShakeCameraScript>().ShakeCamera();
+	}
+
+	public void OnIntroSecondGroundSmash() {
+		Debug.Log("Remove floor");
+		foreach (GameObject go in IntroObjectsToDisable) {
+			go.SetActive(false);
+		}
 	}
 
 

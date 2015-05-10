@@ -123,7 +123,7 @@ public class Player : MonoBehaviour {
 				GameObject camera = GameObject.Find("/CameraHolder");
 				camera.transform.position = checkpoint.transform.position;
 
-				gameObject.GetComponent<Movement>().SetFacingAngle(checkpoint.Rotation);
+				gameObject.GetComponent<Movement>().SetFacingAngleWithTween(checkpoint.Rotation);
 
 				return;
 			}

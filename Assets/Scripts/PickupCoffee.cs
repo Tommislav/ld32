@@ -13,11 +13,6 @@ public class PickupCoffee : MonoBehaviour {
 		if (coll.gameObject.tag == "Player") {
 			
 			coll.gameObject.GetComponent<Player>().OnCoffeCupRecieved();
-
-			LeanTween.moveY(stair1, 0.3f, 1.5f).setDelay(1f);
-			LeanTween.moveY(stair2, -0.7f, 1f).setDelay(2.5f);
-			LeanTween.moveY(stair3, -1.7f, 0.5f).setDelay(3.5f);
-
 			coll.GetComponent<AudioSource>().PlayOneShot(PickupSound);
 
 			Destroy(gameObject);
