@@ -19,3 +19,6 @@ gl
 win
 osx
 linux
+coffee_osx
+coffee_win
+*.zip
